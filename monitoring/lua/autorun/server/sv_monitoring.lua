@@ -8,11 +8,11 @@ monversion = "3.6.9.3"
 --
 --‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-APIUrl					= 	"https://api.gs4u.net/"
-IDServer 				=	"	" --ID Сервера
-WeaponsAddons			= 	"" --M9K, SWBase, FAS и тд
-ServerToken				=	"" --Токен Сервера
-LangIndex_Monitoring 	= "ru"
+local APIUrl					= 	"https://api.gs4u.net/"
+local IDServer 					=	"136828" --ID Сервера
+local WeaponsAddons				= 	"M9K" --M9K, SWBase, FAS и тд
+local ServerToken				=	"FNiD3o4W2K6if4uKvIhAGAcsfvIh1DAEYJPdQRXY2uCeTW3NpgQpY1O57ibSCONq" --Токен Сервера
+local LangIndex_Monitoring 		= 	"ru"
 
 --[[
 	Языки/Langs
@@ -23,18 +23,18 @@ LangIndex_Monitoring 	= "ru"
 
 MoneysName				=	"₽" --Валюта - Для DarkRP
 
-
+print("[ GS4u ] Starting Addons - Monitoring")
 timer.Create("RefreshTimer_Timer", 1, 1, function()
-	http.Fetch(APIUrl.. "?cmd=getCoolDown&data={\"id\":" ..IDServer.. ",\"cmd\":\"updateServer\"}", function(CallBack)
+	print("[ GS4u ] GetCoolDown")
+	http.Fetch(APIUrl.. "?cmd=getCoolDown&data={\"cmd\":\"updateServer\"}", function(CallBack)
+		print("[ GS4u ] TakeCoolDown: "..tonumber(CallBack).."s")
 		timer.Create("RefreshTimer_Timer", tonumber(CallBack), 0, function()
-	
-			--print("Post")
-			PlayerList 		= ""
-			CommandsList 	= ""
-			CategoryJobs 	= ""
+			local PlayerList 	= ""
+			local CommandsList 	= ""
+			local CategoryJobs 	= ""
 
-			OSList 			= ""
-			iPassword		= ""
+			local OSList 		= ""
+			local iPassword		= ""
 			if (system.IsLinux()) then
 				OSList = "Linux"
 			elseif (system.IsWindows()) then
@@ -64,12 +64,11 @@ timer.Create("RefreshTimer_Timer", 1, 1, function()
 							\"password\":" 		..iPassword.. ",\
 							\"os\":\"" 			..OSList.. "\",\
 							\"plversion\":\"" 	..monversion.. "\"}"
-
-			--[[for i = 1, 200, 1 do
-
-				PlayerList = string.format("{\"name\":\"TEASASDASD" ..i.. "\",\"kills\":\"" ..i.. "\",\"deaths\":\"" ..i.. "\",\"ping\":\"" .... "\"}," ..PlayerList.. "")
+			-- 				[ Краш тест ]			--
+			--[[for i = 1, 900, 1 do
+				PlayerList = string.format("{\"name\":\"TEASASDASD" ..i.. "\",\"kills\":\"" ..i.. "\",\"deaths\":\"" ..i.. "\",\"ping\":\"BOTCrash\"}," ..PlayerList.. "")
 			end]]
-
+			--										--
 			for k,v in pairs(RPExtraTeams) do
 				szdescription = string.Replace(v.description, "\t", "")
 				szdescription = string.Replace(szdescription, "\n", "[br]")
@@ -120,7 +119,7 @@ timer.Create("RefreshTimer_Timer", 1, 1, function()
 
 			http.Post("" ..APIUrl.. "index.php", { cmd = "updateServer", data = PostUrl, s = HashCode, hash = "sha1" }, 
 			function(CallBack_Information)
-				--print(CallBack_Information)
+				print(CallBack_Information)
 				if (CallBack_Information ~= "0" or CallBack_Information == "") then
 					if (LangIndex_Monitoring == "ru") then
 						print("Monitoring | " .. "Ошибка: Код " ..CallBack_Information)
@@ -135,13 +134,18 @@ timer.Create("RefreshTimer_Timer", 1, 1, function()
 				end
 			end,
 			function(CallBack_ErrorMessage)
-				--print(CallBack_ErrorMessage)
+				print(CallBack_ErrorMessage)
 			end)
+			CategoryJobs= ""
+			PlayerList 	= ""
+			PostUrl 	= ""
+			HashCode 	= ""
 		end,
 			function(CallBack_Error)
-				--print(CallBack_Error);
+				print(CallBack_Error);
 		end)
 	end,
-		function(error)
+	function(errors)
+		print(errors)
 	end)
 end)
