@@ -9,19 +9,19 @@ monversion = "3.6.9.3"
 --‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 local APIUrl					= 	"https://api.gs4u.net/"
-local IDServer 					=	"136828" --ID Сервера
-local WeaponsAddons				= 	"M9K" --M9K, SWBase, FAS и тд
-local ServerToken				=	"FNiD3o4W2K6if4uKvIhAGAcsfvIh1DAEYJPdQRXY2uCeTW3NpgQpY1O57ibSCONq" --Токен Сервера
+local IDServer 					=	"" -- Server ID from GS4u.net
+local WeaponsAddons				= 	"M9K" --M9K, SWBase, FAS...
+local ServerToken				=	"" --Server Token from GS4u.net
 local LangIndex_Monitoring 		= 	"ru"
 
 --[[
-	Языки/Langs
+	Языки/Langsuages
 	en - English
 	ru - Русский
 	de - Deutsch
 ]]
 
-MoneysName				=	"₽" --Валюта - Для DarkRP
+MoneysName				=	"₽" -- Currency - for DarkRP
 
 print("[ GS4u ] Starting Addons - Monitoring")
 timer.Create("RefreshTimer_Timer", 1, 1, function()
